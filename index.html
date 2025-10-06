@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專案內容描述(交付物與內涵)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #8B4513; /* 深咖啡色 */
+            --secondary-color: #A8D8B9; /* 柔和的薄荷綠 */
+            --accent-color: #FFD166; /* 明亮的蛋黃黃 */
+            --background-color: #FFF9F0; /* 溫馨的米白色 */
+            --card-bg: #FFFFFF; /* 純白卡片背景 */
+            --text-color: #5A4B41; /* 溫暖的深棕色文字 */
+            --border-color: #F0E6D6; /* 淺米色邊框 */
+            --status-color: #8B4513; /* 統一的深咖啡色 */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 標題區塊 - 重點修正 */
+        .header {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
+            background-color: #44d6b2;
+        }
+        
+        .header-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 改為cover以隱藏邊緣 */
+            object-position: center center;
+            z-index: 1;
+            /* 隱藏右側黑線 */
+            width: 102%; /* 輕微增加寬度 */
+            left: -1%; /* 輕微向左偏移 */
+        }
+        
+        /* 添加右側遮罩以確保完全覆蓋 */
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px; /* 增加遮罩寬度 */
+            height: 100%;
+            background-color: #44d6b2;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .header-content {
+            text-align: center;
+            color: white;
+            z-index: 3;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            margin-top: 5vh;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: #5a3921;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.6);
+        }
+        
+        /* 快速導航欄 */
+        .quick-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(90, 75, 65, 0.1);
+        }
+        
+        .quick-nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border-color);
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 8px 15px;
+            width: 250px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            width: 100%;
+            padding: 5px 10px;
+            outline: none;
+        }
+        
+        /* 專案概覽*/
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(90, 75, 65, 0.08);
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(90, 75, 65, 0.15);
+        }
+        
+        .dashboard-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .dashboard-label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .category {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .category.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-color);
+        }
+        
+        .category-title i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .category-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .action-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        .deliverable-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(90, 75, 65, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .deliverable-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .deliverable-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .deliverable-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(139, 69, 19, 0.15);
+            border-color: var(--primary-color);
+        }
+        
+        .card-layout {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        
+        .card-content {
+            flex: 1;
+        }
+        
+        .card-visualization {
+            flex: 1;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .card-id {
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px rgba(139, 69, 19, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .deliverable-card:hover .card-id {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.6);
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .card-text {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .card-highlight {
+            background: rgba(139, 69, 19, 0.1);
+            border-left: 3px solid var(--primary-color);
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .deliverable-card:hover .card-highlight {
+            background: rgba(139, 69, 19, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .sub-items {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+        
+        .sub-item {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .sub-item:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .sub-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(100vw, 100vh) rotate(360deg);
+            }
+        }
+        
+        .pulse {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                box-shadow: 0 0 0 0 rgba(139, 69, 19, 0.7);
+            }
+            
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(139, 69, 19, 0);
+            }
+            
+            100% {
+                transform: scale(0.9);
+                box-shadow: 0 0 0 0 rgba(139, 69, 19, 0);
+            }
+        }
+        
+        .chart-container {
+            background: rgba(139, 69, 19, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .charts-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .chart-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .chart-item-title {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .chart-item-canvas {
+            height: 150px;
+            width: 150px;
+            margin: 0 auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(90, 75, 65, 0.1);
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1.5s ease;
+        }
+        
+        /* 狀態標籤 */
+        .status-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+            background: rgba(139, 69, 19, 0.2);
+            color: var(--status-color);
+        }
+        
+        /* 標籤系統 */
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: rgba(139, 69, 19, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 69, 19, 0.2);
+        }
+        
+        .tag:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        /* 貓狗圖標樣式 */
+        .card-pet-icon {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: rgba(90, 75, 65, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .deliverable-card:hover .card-pet-icon {
+            color: rgba(90, 75, 65, 0.5);
+            transform: scale(1.2);
+        }
+        
+        .footer-pets {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .footer-pet {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            color: var(--primary-color);
+        }
+        
+        .footer-pet:hover {
+            opacity: 1;
+        }
+        
+        /* 模態框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(90, 75, 65, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(90, 75, 65, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        /* 寵物互動區 */
+        .pet-interaction {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .pet-card {
+            width: 320px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+        
+        .pet-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pet-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .pet-card:hover .pet-image {
+            transform: scale(1.05);
+        }
+        
+        .pet-info {
+            padding: 25px;
+        }
+        
+        .pet-info h3 {
+            margin-bottom: 12px;
+            color: #5a3921;
+            font-size: 1.4rem;
+        }
+        
+        .pet-info p {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .interact-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, #5a3921, #8b5a2b);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .interact-btn:hover {
+            background: linear-gradient(45deg, #8b5a2b, #a87c4c);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(90, 57, 33, 0.3);
+        }
+        
+        /* 特色功能區 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #ff9900, #ffcc00);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #ff9900;
+            background: rgba(255, 153, 0, 0.1);
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #5a3921;
+            font-size: 1.4rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        @media (max-width: 1200px) {
+            .card-layout {
+                flex-direction: column;
+            }
+            
+            .card-visualization {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                height: 50vh;
+            }
+            
+            .header-video {
+                object-fit: cover;
+                width: 102%;
+                left: -1%;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-row {
+                flex-direction: column;
+            }
+            
+            .quick-nav-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .header-content {
+                margin-top: 3vh;
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .category-title {
+                font-size: 1.8rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <!-- 標題區塊 -->
+    <header class="header">
+        <video class="header-video" autoplay muted loop playsinline>
+            <source src="https://i.urusai.cc/oLr7H.mp4" type="video/mp4">
+            您的瀏覽器不支援影片播放。
+        </video>
+        <div class="header-content">
+            <h1>專案內容描述(交付物與內涵)</h1>
+            <a href="#ai-modules" class="cta-button">探索專案內容</a>
+        </div>
+    </header>
+
+    <!-- 快速導航欄 -->
+    <nav class="quick-nav">
+        <div class="container quick-nav-container">
+            <div class="nav-links">
+                <a href="#ai-modules" class="nav-link active">AI 體驗模組</a>
+                <a href="#physical-assets" class="nav-link">實體與活動資產</a>
+                <a href="#promotional-assets" class="nav-link">推廣與傳播資產</a>
+                <a href="#data-assets" class="nav-link">數據與回饋資產</a>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜尋交付物...">
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- 專案概覽儀表板 -->
+        <section class="dashboard">
+            <div class="dashboard-card">
+                <div class="dashboard-value">5</div>
+                <div class="dashboard-label">主要交付物</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="dashboard-value">3000+</div>
+                <div class="dashboard-label">預計參與人次</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="dashboard-value">7</div>
+                <div class="dashboard-label">展期天數</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="dashboard-value">20%</div>
+                <div class="dashboard-label">社群觸及率目標</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="dashboard-value">1000</div>
+                <div class="dashboard-label">數據回饋目標</div>
+            </div>
+        </section>
+        
+        <main>
+            <!-- A. 核心 AI 體驗模組 -->
+            <section class="category" id="ai-modules">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-robot"></i>
+                        A. 核心 AI 體驗模組：智慧互動展示
+                    </h2>
+                    <div class="category-actions">
+                        <button class="action-btn expand-all">展開全部</button>
+                        <button class="action-btn collapse-all">收起全部</button>
+                    </div>
+                </div>
+                <p class="subtitle">這些模組是快閃店的產品核心，用於吸引顧客/飼主，並滿足市場對於寵物智慧化照護與互動的高度需求。</p>
+                
+                <!-- 1. 寵物 AI 體驗群 -->
+                <div class="deliverables-grid">
+                    <div class="deliverable-card">
+                        <i class="fas fa-cat card-pet-icon"></i>
+                        <div class="card-layout">
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <div class="card-id">1</div>
+                                    <span class="status-tag">尚未進行</span>
+                                </div>
+                                <h3 class="card-title">寵物 AI 體驗群</h3>
+                                <div class="card-text">
+                                    <p>提供三種 AI 體驗。作為品牌應用 AI 技術於寵物產業的最佳佐證。</p>
+                                    
+                                    <div class="sub-items">
+                                        <div class="sub-item">
+                                            <span class="pulse"></span>
+                                            <strong>a. AI 寵愛 app</strong> - 展現行動裝置上的智慧寵物照護應用。
+                                        </div>
+                                        <div class="sub-item">
+                                            <span class="pulse"></span>
+                                            <strong>b. 寵物情緒翻譯站</strong> - 提供高互動性的娛樂與情緒辨識體驗。
+                                        </div>
+                                        <div class="sub-item">
+                                            <span class="pulse"></span>
+                                            <strong>c. 智慧餵食 & 健康監測展示</strong> - 體現日常照護中的科技整合與健康管理。
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-tags">
+                                        <span class="tag">AI技術</span>
+                                        <span class="tag">寵物照護</span>
+                                        <span class="tag">互動體驗</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-visualization">
+                                <div class="chart-container">
+                                    <div class="chart-title">AI 體驗用戶滿意度目標值</div>
+                                    <div class="charts-row">
+                                        <div class="chart-item">
+                                            <div class="chart-item-title">AI 寵愛 app</div>
+                                            <div class="chart-item-canvas">
+                                                <canvas id="aiAppChart"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="chart-item">
+                                            <div class="chart-item-title">寵物情緒翻譯站</div>
+                                            <div class="chart-item-canvas">
+                                                <canvas id="emotionChart"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="chart-item">
+                                            <div class="chart-item-title">智慧餵食 & 健康監測</div>
+                                            <div class="chart-item-canvas">
+                                                <canvas id="healthChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2. 與您的寵物互動 -->
+                <h2 class="category-title" style="text-align: center; margin: 40px 0;">與您的寵物互動</h2>
+                <div class="pet-interaction" id="interaction">
+                    <div class="pet-card">
+                        <img src="https://l.urusai.cc/zMzRP.png" alt="AI寵愛app" class="pet-image">
+                        <div class="pet-info">
+                            <h3>AI寵愛app</h3>
+                            <p>展現行動裝置上的智慧寵物照護應用，提供全方位的寵物照護解決方案。</p>
+                            <button class="interact-btn">開始體驗</button>
+                        </div>
+                    </div>
+                    
+                    <div class="pet-card">
+                        <img src="https://l.urusai.cc/x7Q33.png" alt="寵物情緒翻譯站" class="pet-image">
+                        <div class="pet-info">
+                            <h3>寵物情緒翻譯站</h3>
+                            <p>提供高互動性的娛樂與情緒辨識體驗，讓您更瞭解寵物的情緒狀態。</p>
+                            <button class="interact-btn">開始體驗</button>
+                        </div>
+                    </div>
+                    
+                    <div class="pet-card">
+                        <img src="https://l.urusai.cc/VFPx5.png" alt="智慧餵食 & 健康監測展示" class="pet-image">
+                        <div class="pet-info">
+                            <h3>智慧餵食 & 健康監測</h3>
+                            <p>體現日常照護中的科技整合與健康管理，確保寵物的健康與福祉。</p>
+                            <button class="interact-btn">開始體驗</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3. AI寵愛特色功能 -->
+                <h2 class="category-title" style="text-align: center; margin: 40px 0;">AI寵愛特色功能</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                        <h3>智慧行為分析</h3>
+                        <p>利用AI技術分析寵物行為模式，瞭解牠們的需求與情緒。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+                        <h3>互動遊戲</h3>
+                        <p>多種有趣的互動遊戲，增進您與寵物之間的情感連結。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-heartbeat"></i></div>
+                        <h3>健康追蹤</h3>
+                        <p>記錄寵物健康數據，提供專業的照護建議與提醒。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-users"></i></div>
+                        <h3>寵物社群</h3>
+                        <p>與其他寵物主人交流經驗，分享寵物生活的點點滴滴。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- B. 實體與活動資產 -->
+            <section class="category" id="physical-assets">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-store"></i>
+                        B. 實體與活動資產：品牌場域建置
+                    </h2>
+                    <div class="category-actions">
+                        <button class="action-btn expand-all">展開全部</button>
+                        <button class="action-btn collapse-all">收起全部</button>
+                    </div>
+                </div>
+                <p class="subtitle">此類交付物確保體驗能夠被實體化並順利運營，達成至少 7 天展期目標的基礎。</p>
+                
+                <div class="deliverables-grid">
+                    <!-- 快閃店實體空間 -->
+                    <div class="deliverable-card">
+                        <i class="fas fa-dog card-pet-icon"></i>
+                        <div class="card-layout">
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <div class="card-id">2</div>
+                                    <span class="status-tag">尚未進行</span>
+                                </div>
+                                <h3 class="card-title">快閃店實體空間</h3>
+                                <div class="card-text">
+                                    <p>需完成包含設計、施工、佈置與最終驗收的完整實體場域。此為承載 3000+ 人次體驗的物理空間。</p>
+                                    
+                                    <div class="card-tags">
+                                        <span class="tag">空間設計</span>
+                                        <span class="tag">施工</span>
+                                        <span class="tag">佈置</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-visualization">
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-value">7</div>
+                                        <div class="stat-label">展期天數</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" data-width="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value">3000+</div>
+                                        <div class="stat-label">預計參與人次</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" data-width="85"></div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value">15</div>
+                                        <div class="stat-label">互動體驗站</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" data-width="90"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 活動企劃與執行 -->
+                    <div class="deliverable-card">
+                        <i class="fas fa-cat card-pet-icon"></i>
+                        <div class="card-layout">
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <div class="card-id">3</div>
+                                    <span class="status-tag">尚未進行</span>
+                                </div>
+                                <h3 class="card-title">活動企劃與執行</h3>
+                                <div class="card-text">
+                                    <p>規劃涵蓋宣傳、開幕儀式、現場互動體驗及抽獎活動的完整流程，以確保活動的媒體話題性與人潮吸引力。</p>
+                                    
+                                    <div class="card-tags">
+                                        <span class="tag">活動企劃</span>
+                                        <span class="tag">宣傳</span>
+                                        <span class="tag">開幕儀式</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-visualization">
+                                <div class="chart-container">
+                                    <div class="chart-title">活動參與度預測</div>
+                                    <div class="chart-wrapper">
+                                        <canvas id="participationChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- C. 推廣與傳播資產 -->
+            <section class="category" id="promotional-assets">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-bullhorn"></i>
+                        C. 推廣與傳播資產：品牌曝光工具
+                    </h2>
+                    <div class="category-actions">
+                        <button class="action-btn expand-all">展開全部</button>
+                        <button class="action-btn collapse-all">收起全部</button>
+                    </div>
+                </div>
+                <p class="subtitle">這些交付物是用於外部溝通的行銷素材，必須支持達成社群觸及率提升 20% 的量化目標。</p>
+                
+                <div class="deliverables-grid">
+                    <!-- 品牌推廣素材組合 -->
+                    <div class="deliverable-card">
+                        <i class="fas fa-dog card-pet-icon"></i>
+                        <div class="card-layout">
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <div class="card-id">4</div>
+                                    <span class="status-tag">尚未進行</span>
+                                </div>
+                                <h3 class="card-title">品牌推廣素材組合</h3>
+                                <div class="card-text">
+                                    <p>包含針對不同平臺和受眾優化的社群媒體貼文、宣傳影片與廣告素材。用於配合國際寵物日 (4/11) 進行大規模推廣。</p>
+                                    <div class="card-highlight">
+                                        目標：達成社群觸及率提升 20%
+                                    </div>
+                                    
+                                    <div class="card-tags">
+                                        <span class="tag">社群媒體</span>
+                                        <span class="tag">宣傳影片</span>
+                                        <span class="tag">廣告素材</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-visualization">
+                                <div class="chart-container">
+                                    <div class="chart-title">社群媒體觸及率增長</div>
+                                    <div class="chart-wrapper">
+                                        <canvas id="reachChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- D. 數據與回饋資產 -->
+            <section class="category" id="data-assets">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-chart-line"></i>
+                        D. 數據與回饋資產：產品開發支撐
+                    </h2>
+                    <div class="category-actions">
+                        <button class="action-btn expand-all">展開全部</button>
+                        <button class="action-btn collapse-all">收起全部</button>
+                    </div>
+                </div>
+                <p class="subtitle">數據的收集與分析是本專案的關鍵目標之一，旨在支撐後續產品開發並達成收集至少 1000 份顧客數據回饋的目標。</p>
+                
+                <div class="deliverables-grid">
+                    <!-- 顧客行為數據報告 -->
+                    <div class="deliverable-card">
+                        <i class="fas fa-cat card-pet-icon"></i>
+                        <div class="card-layout">
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <div class="card-id">5</div>
+                                    <span class="status-tag">尚未進行</span>
+                                </div>
+                                <h3 class="card-title">顧客行為數據報告</h3>
+                                <div class="card-text">
+                                    <p>需完整收集顧客參與數據、AI 體驗回饋，並進行後續分析。這些報告將提供高階主管決策依據。</p>
+                                    <div class="card-highlight">
+                                        目標：收集至少 1000 份顧客數據回饋
+                                    </div>
+                                    
+                                    <div class="card-tags">
+                                        <span class="tag">數據收集</span>
+                                        <span class="tag">分析報告</span>
+                                        <span class="tag">決策支持</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-visualization">
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-value">1000</div>
+                                        <div class="stat-label">目標回饋數</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" data-width="75"></div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value">90%</div>
+                                        <div class="stat-label">數據品質</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" data-width="90"></div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-value">92%</div>
+                                        <div class="stat-label">用戶參與度</div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" data-width="92"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="chart-container">
+                                    <div class="chart-title">數據品質分析</div>
+                                    <div class="chart-wrapper">
+                                        <canvas id="dataProgressChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>©《第一組》專案內容描述(交付物與內涵)</p>
+            <div class="footer-pets">
+                <i class="fas fa-paw footer-pet"></i>
+                <i class="fas fa-bone footer-pet"></i>
+                <i class="fas fa-paw footer-pet"></i>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 詳細資訊模態框 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 class="modal-title" id="modalTitle">交付物詳細資訊</h2>
+            <div id="modalContent">
+                <!-- 模態框內容將由 JavaScript 動態生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 創建浮動元素
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const count = 20;
+            
+            for (let i = 0; i < count; i++) {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                
+                // 隨機大小和位置
+                const size = Math.random() * 10 + 5;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                
+                // 隨機顏色
+                const colors = ['#8B4513', '#A8D8B9', '#FFD166', '#FFB4A2'];
+                element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 隨機動畫延遲和持續時間
+                element.style.animationDelay = `${Math.random() * 20}s`;
+                element.style.animationDuration = `${Math.random() * 30 + 20}s`;
+                
+                container.appendChild(element);
+            }
+        }
+        
+        // 卡片交互動畫
+        function initCardInteractions() {
+            const cards = document.querySelectorAll('.deliverable-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+                
+                // 點擊卡片顯示詳細資訊
+                card.addEventListener('click', (e) => {
+                    // 防止點擊按鈕時觸發
+                    if (!e.target.classList.contains('action-btn')) {
+                        showCardDetails(card);
+                    }
+                });
+            });
+        }
+        
+        // 寵物互動卡片功能
+        function initPetInteractions() {
+            const petCards = document.querySelectorAll('.pet-card');
+            
+            petCards.forEach(card => {
+                const button = card.querySelector('.interact-btn');
+                button.addEventListener('click', function() {
+                    const title = card.querySelector('h3').textContent;
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.7);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 1000;
+                    `;
+                    
+                    modal.innerHTML = `
+                        <div style="background: white; padding: 30px; border-radius: 20px; text-align: center; max-width: 500px; width: 90%;">
+                            <h2 style="color: #5a3921; margin-bottom: 20px;">開始${title}</h2>
+                            <p style="margin-bottom: 25px;">AI寵愛功能即將啟動，請準備好您的設備與寵物進行互動！</p>
+                            <button id="close-modal" style="padding: 10px 25px; background: #ff9900; color: white; border: none; border-radius: 5px; cursor: pointer;">確定</button>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                    
+                    document.getElementById('close-modal').addEventListener('click', function() {
+                        document.body.removeChild(modal);
+                    });
+                });
+            });
+        }
+        
+        // 顯示卡片詳細資訊
+        function showCardDetails(card) {
+            const title = card.querySelector('.card-title').textContent;
+            const content = card.querySelector('.card-content').innerHTML;
+            
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+        
+        // 滾動動畫
+        function initScrollAnimations() {
+            const categories = document.querySelectorAll('.category');
+            const cards = document.querySelectorAll('.deliverable-card');
+            const progressBars = document.querySelectorAll('.progress-fill');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // 如果是進度條，則設置寬度
+                        if (entry.target.classList.contains('progress-fill')) {
+                            const width = entry.target.getAttribute('data-width');
+                            setTimeout(() => {
+                                entry.target.style.width = `${width}%`;
+                            }, 300);
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            categories.forEach(category => {
+                observer.observe(category);
+            });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            progressBars.forEach(bar => {
+                observer.observe(bar);
+            });
+        }
+        
+        // 創建圖表
+        function createCharts() {
+            // 定義在圓餅圖中間顯示文字的外掛程式
+            const centerTextPlugin = {
+                id: 'centerText',
+                beforeDraw: function(chart) {
+                    if (chart.config.type === 'doughnut') {
+                        const ctx = chart.ctx;
+                        const chartArea = chart.chartArea;
+                        const centerX = (chartArea.left + chartArea.right) / 2;
+                        const centerY = (chartArea.top + chartArea.bottom) / 2;
+                        
+                        ctx.save();
+                        ctx.font = 'bold 20px Arial';
+                        ctx.fillStyle = '#5A4B41';  // 改為深色
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('90%', centerX, centerY);
+                        ctx.restore();
+                    }
+                }
+            };
+            
+            // AI 寵愛 app 滿意度目標值圖表
+            const aiAppCtx = document.getElementById('aiAppChart').getContext('2d');
+            new Chart(aiAppCtx, {
+                type: 'doughnut',
+                plugins: [centerTextPlugin],
+                data: {
+                    labels: ['滿意', '不滿意'],
+                    datasets: [{
+                        data: [90, 10],
+                        backgroundColor: [
+                            'rgba(139, 69, 19, 0.8)',
+                            'rgba(240, 230, 214, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(139, 69, 19, 1)',
+                            'rgba(240, 230, 214, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+            
+            // 寵物情緒翻譯站滿意度目標值圖表
+            const emotionCtx = document.getElementById('emotionChart').getContext('2d');
+            new Chart(emotionCtx, {
+                type: 'doughnut',
+                plugins: [centerTextPlugin],
+                data: {
+                    labels: ['滿意', '不滿意'],
+                    datasets: [{
+                        data: [90, 10],
+                        backgroundColor: [
+                            'rgba(168, 216, 185, 0.8)',
+                            'rgba(240, 230, 214, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(168, 216, 185, 1)',
+                            'rgba(240, 230, 214, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+            
+            // 智慧餵食 & 健康監測滿意度目標值圖表
+            const healthCtx = document.getElementById('healthChart').getContext('2d');
+            new Chart(healthCtx, {
+                type: 'doughnut',
+                plugins: [centerTextPlugin],
+                data: {
+                    labels: ['滿意', '不滿意'],
+                    datasets: [{
+                        data: [90, 10],
+                        backgroundColor: [
+                            'rgba(255, 209, 102, 0.8)',
+                            'rgba(240, 230, 214, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 209, 102, 1)',
+                            'rgba(240, 230, 214, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+            
+            // 參與度預測圖表
+            const participationCtx = document.getElementById('participationChart').getContext('2d');
+            new Chart(participationCtx, {
+                type: 'line',
+                data: {
+                    labels: ['第1天', '第2天', '第3天', '第4天', '第5天', '第6天', '第7天'],
+                    datasets: [{
+                        label: '預測參與人數',
+                        data: [320, 450, 580, 720, 850, 920, 980],
+                        borderColor: 'rgba(139, 69, 19, 1)',
+                        backgroundColor: 'rgba(139, 69, 19, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(90, 75, 65, 0.1)'
+                            },
+                            ticks: {
+                                color: '#5A4B41'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(90, 75, 65, 0.1)'
+                            },
+                            ticks: {
+                                color: '#5A4B41'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#5A4B41'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 觸及率圖表
+            const reachCtx = document.getElementById('reachChart').getContext('2d');
+            new Chart(reachCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Facebook', 'Instagram', 'Twitter', 'YouTube', 'TikTok', 'Threads'],
+                    datasets: [{
+                        label: '觸及率增長 (%)',
+                        data: [18, 25, 12, 22, 30, 30],
+                        backgroundColor: [
+                            'rgba(139, 69, 19, 0.8)',
+                            'rgba(168, 216, 185, 0.8)',
+                            'rgba(255, 209, 102, 0.8)',
+                            'rgba(255, 180, 162, 0.8)',
+                            'rgba(139, 69, 19, 0.8)',
+                            'rgba(168, 216, 185, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(139, 69, 19, 1)',
+                            'rgba(168, 216, 185, 1)',
+                            'rgba(255, 209, 102, 1)',
+                            'rgba(255, 180, 162, 1)',
+                            'rgba(139, 69, 19, 1)',
+                            'rgba(168, 216, 185, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(90, 75, 65, 0.1)'
+                            },
+                            ticks: {
+                                color: '#5A4B41',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(90, 75, 65, 0.1)'
+                            },
+                            ticks: {
+                                color: '#5A4B41'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#5A4B41'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 數據進度圖表
+            const dataProgressCtx = document.getElementById('dataProgressChart').getContext('2d');
+            new Chart(dataProgressCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['數據完整性', '數據準確性', '用戶參與度', '數據多樣性', '分析深度'],
+                    datasets: [{
+                        label: '數據品質分析',
+                        data: [85, 90, 92, 78, 82],
+                        backgroundColor: 'rgba(139, 69, 19, 0.2)',
+                        borderColor: 'rgba(139, 69, 19, 1)',
+                        pointBackgroundColor: 'rgba(139, 69, 19, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(139, 69, 19, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(90, 75, 65, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(90, 75, 65, 0.1)'
+                            },
+                            pointLabels: {
+                                color: '#5A4B41'
+                            },
+                            ticks: {
+                                color: '#5A4B41',
+                                backdropColor: 'transparent'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#5A4B41'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 搜尋功能
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.deliverable-card');
+                
+                cards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const content = card.querySelector('.card-text').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // 導航功能
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有 active 類
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // 添加 active 類到當前點擊的鏈接
+                    this.classList.add('active');
+                    
+                    // 滾動到對應部分
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 監聽滾動事件，更新導航高亮
+            window.addEventListener('scroll', function() {
+                const categories = document.querySelectorAll('.category');
+                let currentSection = '';
+                
+                categories.forEach(category => {
+                    const categoryTop = category.offsetTop - 150;
+                    const categoryHeight = category.clientHeight;
+                    
+                    if (window.scrollY >= categoryTop && window.scrollY < categoryTop + categoryHeight) {
+                        currentSection = '#' + category.id;
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+        
+        // 展開/收起功能
+        function initExpandCollapse() {
+            const expandButtons = document.querySelectorAll('.expand-all');
+            const collapseButtons = document.querySelectorAll('.collapse-all');
+            
+            expandButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.closest('.category');
+                    const cards = category.querySelectorAll('.deliverable-card');
+                    
+                    cards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                });
+            });
+            
+            collapseButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.closest('.category');
+                    const cards = category.querySelectorAll('.deliverable-card');
+                    
+                    cards.forEach(card => {
+                        card.style.display = 'none';
+                    });
+                });
+            });
+        }
+        
+        // 模態框功能
+        function initModal() {
+            const modal = document.getElementById('detailModal');
+            const closeBtn = document.getElementById('closeModal');
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingElements();
+            initCardInteractions();
+            initPetInteractions();
+            initScrollAnimations();
+            createCharts();
+            initSearch();
+            initNavigation();
+            initExpandCollapse();
+            initModal();
+        });
+    </script>
+</body>
+</html>
